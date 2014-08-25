@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "name": "luetium",
+  "description": "dont exist foo",
+  "version": "0.1.0",
+  "icons": {
+    "16": "img/icon-16.png",
+    "48": "img/icon-48.png",
+    "128": "img/icon-128.png"
+  },
+  "permissions": [
+    "http://*/*",
+    "https://*/*",
+    "clipboardWrite",
+    "notifications",
+    "contextMenus",
+    "webRequest"
+  ],
+  "background": {
+    "scripts": [
+      "src/util/notify.js",
+      "src/util/ajax.js",
+      "src/background/transloader.js"
+    ]
+  }
+}
