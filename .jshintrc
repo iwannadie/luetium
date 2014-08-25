@@ -1,0 +1,25 @@
+{
+  "browser": true,
+
+  "eqeqeq": true,
+  "forin": false,
+  "freeze": true,
+  "latedef": "nofunc",
+  "newcap": false,
+  "noarg": true,
+  "noempty": true,
+  "quotmark": true,
+  "undef": true,
+  "unused": true,
+  "strict": false,
+  "trailing": true,
+  "maxlen": 80,
+
+  "boss": true,
+  "eqnull": true,
+  "loopfunc": true,
+
+  "globals": {
+    "console": false
+  }
+}
