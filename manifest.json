@@ -13,8 +13,7 @@
     "https://*/*",
     "clipboardWrite",
     "notifications",
-    "contextMenus",
-    "webRequest"
+    "contextMenus"
   ],
   "background": {
     "scripts": [
