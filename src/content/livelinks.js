@@ -29,7 +29,10 @@ timeoutID = setTimeout(function() {
 }, 500);
 
 // Keep track of tab focus.
-window.addEventListener('focus', function() { tabFocused = true; });
+window.addEventListener('focus', function() {
+  tabFocused = true;
+  checkUnseenPosts();
+});
 window.addEventListener('blur', function() { tabFocused = false; });
 
 var unseenPosts = [];
@@ -48,7 +51,7 @@ $livelinks.addEventListener('new-post', function(e) {
   }
 });
 
-dom.throttleEvent(window, 'scroll', 100, function() {
+function checkUnseenPosts() {
   if (!unseenPosts.length) { return; }
   var $currPost;
   while ($currPost = unseenPosts[0]) {
@@ -60,7 +63,9 @@ dom.throttleEvent(window, 'scroll', 100, function() {
       return;
     }
   }
-});
+}
+
+dom.throttleEvent(window, 'scroll', 100, checkUnseenPosts);
 
 // Always increase the favicon count if the posts are from other pages.
 $livelinks.addEventListener('new-page-post', favicon.inc);
