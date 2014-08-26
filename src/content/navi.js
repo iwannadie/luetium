@@ -40,15 +40,13 @@ TopicManager.prototype.updateMessages = function(newCount) {
           var $tmp = document.createElement('div');
           $tmp.innerHTML = data;
           DOM.eval(self.dom.appendChild($tmp));
-        } else {
-          $livelinks.dispatchEvent(new CustomEvent('new-page-post'));
+          Navi.singleton().notify();
         }
         var $viewers = document.getElementById('topic_viewers_update');
         if ($viewers) {
           self.viewers.innerHTML = $viewers.innerHTML;
           $viewers.parentNode.removeChild($viewers);
         }
-        (function() { Navi.singleton().notify(); }).defer();
       }
       self.pendingUpdate = false;
       if (self.pendingMessages) {
@@ -56,6 +54,11 @@ TopicManager.prototype.updateMessages = function(newCount) {
       }
     }).send();
     this.pendingUpdate = true;
+
+    if (!currentPage) {
+      $livelinks.dispatchEvent(new CustomEvent('new-page-post'));
+      Navi.singleton().notify();
+    }
   }
   this.messages = newCount;
 };
