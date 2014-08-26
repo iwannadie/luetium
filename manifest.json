@@ -21,5 +21,24 @@
       "src/util/ajax.js",
       "src/background/transloader.js"
     ]
-  }
+  },
+  "content_scripts": [
+    { "matches": [
+        "http://boards.endoftheinter.net/showmessages.php*",
+        "https://boards.endoftheinter.net/showmessages.php*",
+        "http://endoftheinter.net/inboxthread.php*",
+        "https://endoftheinter.net/inboxthread.php*"
+      ],
+      "js": [
+        "third_party/favico-0.3.5.min.js",
+        "src/util/dom.js",
+        "src/content/favicon.js",
+        "src/content/livelinks.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    "src/content/navi.js"
+  ]
 }
