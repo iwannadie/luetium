@@ -44,7 +44,7 @@ $livelinks.addEventListener('new-post', function(e) {
   //   * tab is not focused
   //   * post is not currently on screen
   // If so, increase the count on the favicon until this post is seen.
-  if (myuser.ID !== post.userID && (!tabFocused || !dom.isOnScreen($node))) {
+  if (myuser.ID !== post.user.ID && (!tabFocused || !dom.isOnScreen($node))) {
     favicon.inc();
     unseenPosts.push($node);
   }
