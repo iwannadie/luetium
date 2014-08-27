@@ -1,10 +1,10 @@
-/* global chrome, dom, favicon */
+/* global chrome, dom, Post, myuser, favicon */
 
 // This script needs to be injected into the page with a script tag
 // because content scripts are sandboxed, they don't get access
 // to the window.
 var $livelinks = document.createElement('script');
-$livelinks.src = chrome.extension.getURL('src/content/navi.js');
+$livelinks.src = chrome.extension.getURL('src/content/messages/navi.js');
 
 // The element will be used as a bridge between content scripts and
 // the actual window. Events will fire from it signaling new posts.
@@ -29,23 +29,22 @@ timeoutID = setTimeout(function() {
 }, 500);
 
 // Keep track of tab focus.
-window.addEventListener('focus', function() {
-  tabFocused = true;
-  checkUnseenPosts();
-});
+window.addEventListener('focus', function() { tabFocused = true; });
 window.addEventListener('blur', function() { tabFocused = false; });
 
 var unseenPosts = [];
 
 $livelinks.addEventListener('new-post', function(e) {
-  var tmpid = e.detail;
-  var $node = document.getElementsByClassName(tmpid)[0];
-  $node.classList.remove(tmpid);
+  var id = e.detail;
+  var $node = document.getElementById(id);
+  var post = new Post($node);
 
-  // Whenever there's a new post, check if either the tab is not focused,
-  // or the post is not currently on screen.
+  // Whenever there's a new post, check that it does not belong
+  // to the current user, and if either
+  //   * tab is not focused
+  //   * post is not currently on screen
   // If so, increase the count on the favicon until this post is seen.
-  if (!tabFocused || !dom.isOnScreen($node)) {
+  if (myuser.ID !== post.userID && (!tabFocused || !dom.isOnScreen($node))) {
     favicon.inc();
     unseenPosts.push($node);
   }
@@ -66,6 +65,7 @@ function checkUnseenPosts() {
 }
 
 dom.throttleEvent(window, 'scroll', 100, checkUnseenPosts);
+window.addEventListener('focus', checkUnseenPosts);
 
 // Always increase the favicon count if the posts are from other pages.
 $livelinks.addEventListener('new-page-post', favicon.inc);

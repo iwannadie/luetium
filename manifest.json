@@ -32,13 +32,16 @@
       "js": [
         "third_party/favico-0.3.5.min.js",
         "src/util/dom.js",
+        "src/util/strings.js",
         "src/content/favicon.js",
-        "src/content/livelinks.js"
+        "src/content/myuser.js",
+        "src/content/messages/post.js",
+        "src/content/messages/livelinks.js"
       ],
       "run_at": "document_end"
     }
   ],
   "web_accessible_resources": [
-    "src/content/navi.js"
+    "src/content/messages/navi.js"
   ]
 }

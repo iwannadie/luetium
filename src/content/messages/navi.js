@@ -3,13 +3,13 @@
 var $livelinks = document.getElementById('livelinks');
 
 // Replace this function on the TopicManager for a few reasons
-// * To notify contents scripts of
-//   * an updated `newCount`.
-//   * new messages
-// * Fixes a bug with `pendingUpdate` being checking incorrectly.
-//   If this function is called too frequently, a message may not show up
-//   on the page because a request to `/moremessages.php` is already
-//   under way.
+//   * To notify contents scripts of
+//     * an updated `newCount`.
+//     * new messages
+//   * Fixes a bug with `pendingUpdate` being checking incorrectly.
+//     If this function is called too frequently, a message may not show up
+//     on the page because a request to `/moremessages.php` is already
+//     under way.
 TopicManager.prototype.updateMessages = function(newCount) {
   var event = new CustomEvent('new-post-count', { detail: newCount });
   $livelinks.dispatchEvent(event);
@@ -69,11 +69,13 @@ DOM.eval = function($node) {
   // This function is called by the TopicManager whenever a new message
   // comes in through livelinks, and from quickpost on preview and on post.
   if ($node.parentNode.id === 'u0_1' && $node.childNodes.length) {
-    // Give the dom $node a temporary ID to identify it from the
-    // content script. Can't pass dom node to custom events.
-    var tmpid = (~~(Math.random() * 1e9)).toString(16);
-    $node.classList.add(tmpid);
-    $livelinks.dispatchEvent(new CustomEvent('new-post', { detail: tmpid }));
+    // Can't pass dom node over custom events, so pass the ID.
+    var $posts = $node.getElementsByClassName('message-container');
+    for (var i = 0, len = $posts.length; i < len; i++) {
+      $livelinks.dispatchEvent(new CustomEvent('new-post', {
+        detail: $posts[i].id
+      }));
+    }
   }
   oldeval.call(DOM, $node);
 };

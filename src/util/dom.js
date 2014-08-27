@@ -30,3 +30,9 @@ dom.throttleEvent = function($el, event, ms, handler) {
     }
   });
 };
+
+dom.createDiv = function(html) {
+  var $div = document.createElement('div');
+  $div.innerHTML = html;
+  return $div;
+};
