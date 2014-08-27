@@ -16,22 +16,6 @@ var $sound = document.createElement('audio');
 $sound.id = 'sound_player';
 document.body.appendChild($sound);
 
-// Find out if tab is focused when the page first loads.
-// If RAF takes too long, the tab is in the background.
-var tabFocused = true, requestID, timeoutID;
-requestID = requestAnimationFrame(function() {
-  clearTimeout(timeoutID);
-  tabFocused = true;
-});
-timeoutID = setTimeout(function() {
-  cancelAnimationFrame(requestID);
-  tabFocused = false;
-}, 500);
-
-// Keep track of tab focus.
-window.addEventListener('focus', function() { tabFocused = true; });
-window.addEventListener('blur', function() { tabFocused = false; });
-
 var unseenPosts = [];
 
 $livelinks.addEventListener('new-post', function(e) {
@@ -41,10 +25,11 @@ $livelinks.addEventListener('new-post', function(e) {
 
   // Whenever there's a new post, check that it does not belong
   // to the current user, and if either
-  //   * tab is not focused
+  //   * page is not hidden
   //   * post is not currently on screen
   // If so, increase the count on the favicon until this post is seen.
-  if (myuser.ID !== post.user.ID && (!tabFocused || !dom.isOnScreen($node))) {
+  if (myuser.ID !== post.user.ID &&
+     (!document.hidden || !dom.isOnScreen($node))) {
     favicon.inc();
     unseenPosts.push($node);
   }
