@@ -56,7 +56,9 @@ TopicManager.prototype.updateMessages = function(newCount) {
     this.pendingUpdate = true;
 
     if (!currentPage) {
-      $livelinks.dispatchEvent(new CustomEvent('new-page-post'));
+      $livelinks.dispatchEvent(new CustomEvent('new-page-post', {
+        detail: newCount - this.messages
+      }));
       Navi.singleton().notify();
     }
   }

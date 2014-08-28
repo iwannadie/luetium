@@ -11,6 +11,6 @@ $link.href = 'data:image/vnd.microsoft.icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAA
 var favico = new Favico({ bgColor: '#006dff', animation: 'none' });
 var unseen = 0;
 window.favicon = {
-  inc: function() { favico.badge(++unseen); },
+  inc: function(n) { favico.badge(unseen + (n || 1)); },
   dec: function() { favico.badge(--unseen); },
 };

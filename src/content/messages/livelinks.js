@@ -54,4 +54,6 @@ dom.throttleEvent(window, 'scroll', 100, checkUnseenPosts);
 window.addEventListener('focus', checkUnseenPosts);
 
 // Always increase the favicon count if the posts are from other pages.
-$livelinks.addEventListener('new-page-post', favicon.inc);
+$livelinks.addEventListener('new-page-post', function(e) {
+  favicon.inc(e.detail);
+});
