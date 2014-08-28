@@ -2,8 +2,7 @@ var dom = window.dom = {};
 
 // Returns true if `$el` is on screen.
 dom.isOnScreen = function($el) {
-  var rect = $el.getBoundingClientRect();
-  return rect.bottom >= 0 && rect.top <= window.innerHeight;
+  return $el.getBoundingClientRect().bottom <= window.innerHeight;
 };
 
 // Attaches an event listener to `$el` and throttles calling the
