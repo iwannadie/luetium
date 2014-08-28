@@ -28,10 +28,11 @@ $livelinks.addEventListener('new-post', function(e) {
   //   * page is not hidden
   //   * post is not currently on screen
   // If so, increase the count on the favicon until this post is seen.
+  var $message = post.$messageWithoutSig;
   if (myuser.ID !== post.user.ID &&
-     (!document.hidden || !dom.isOnScreen($node))) {
+     (!document.hidden || !dom.isOnScreen($message))) {
     favicon.inc();
-    unseenPosts.push($node);
+    unseenPosts.push($message);
   }
 });
 
