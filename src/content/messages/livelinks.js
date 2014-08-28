@@ -30,7 +30,7 @@ $livelinks.addEventListener('new-post', function(e) {
   // If so, increase the count on the favicon until this post is seen.
   var $message = post.$messageWithoutSig;
   if (myuser.ID !== post.user.ID &&
-     (!document.hidden || !dom.isOnScreen($message))) {
+     (document.webkitHidden || !dom.isOnScreen($message))) {
     favicon.inc();
     unseenPosts.push($message);
   }
@@ -51,7 +51,11 @@ function checkUnseenPosts() {
 }
 
 dom.throttleEvent(window, 'scroll', 100, checkUnseenPosts);
-window.addEventListener('focus', checkUnseenPosts);
+document.addEventListener('webkitvisibilitychange', function() {
+  if (!document.webkitHidden) {
+    checkUnseenPosts();
+  }
+});
 
 // Always increase the favicon count if the posts are from other pages.
 $livelinks.addEventListener('new-page-post', function(e) {
