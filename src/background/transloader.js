@@ -19,7 +19,6 @@ var facebookRegexp = /fbcdn\-sphotos/;
 var uploadUrl = 'http://u.endoftheinter.net/u.php';
 var maxSize = 1024 * 1024 * 2;
 /* jshint maxlen:false */
-var findLinkRegexp = /&quot;(http:\/\/i\d+\.endoftheinter\.net\/i\/n\/[a-z0-9]+\/[^\/]+)&quot;/;
 
 function transloadit(image) {
   // If the image is already hosted on ETI,
@@ -59,12 +58,12 @@ function transloadit(image) {
       return;
     }
 
-    var blob = download.response;
-    if (blob.size > maxSize) {
+    if (download.response.byteLength > maxSize) {
       notifyError('Image can\'t be over 2MB');
       return;
     }
 
+    var blob = new Blob([new DataView(download.response)]);
     var form = new FormData();
     form.append('file', blob, filename);
     ajax.post(uploadUrl, form, function(upload) {
@@ -73,6 +72,9 @@ function transloadit(image) {
         return;
       }
 
+      var findLinkRegexp = new RegExp(
+        '&quot;(http:\\/\\/i\\d+\\.endoftheinter\\.net\\/i\\/n\\/' +
+        '[a-z0-9]+\\/' + filename + ')&quot;');
       var rs = findLinkRegexp.exec(upload.responseText);
       if (!rs) {
         notifyError('There was an error uploading the image');
@@ -86,7 +88,7 @@ function transloadit(image) {
       });
     });
   });
-  download.responseType = 'blob';
+  download.responseType = 'arraybuffer';
 }
 
 function notifyError(message) {
