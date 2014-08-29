@@ -38,15 +38,20 @@ $livelinks.addEventListener('new-post', function(e) {
 
 function checkUnseenPosts() {
   if (!unseenPosts.length) { return; }
+  var seenCount = 0;
   var $currPost;
-  while ($currPost = unseenPosts[0]) {
+  while ($currPost = unseenPosts[seenCount]) {
     if (dom.isOnScreen($currPost)) {
-      unseenPosts.splice(0, 1);
-      favicon.dec();
+      seenCount++;
     } else {
       // If an older post is not on screen, neither is a newer one.
-      return;
+      break;
     }
+  }
+
+  if (seenCount > 0) {
+    unseenPosts.splice(0, seenCount);
+    favicon.dec(seenCount);
   }
 }
 

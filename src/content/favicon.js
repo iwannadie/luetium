@@ -12,5 +12,5 @@ var favico = new Favico({ bgColor: '#006dff', animation: 'none' });
 var unseen = 0;
 window.favicon = {
   inc: function(n) { favico.badge(unseen += (n || 1)); },
-  dec: function() { favico.badge(--unseen); },
+  dec: function(n) { favico.badge(unseen -= (n || 1)); },
 };

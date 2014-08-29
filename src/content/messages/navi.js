@@ -40,7 +40,7 @@ TopicManager.prototype.updateMessages = function(newCount) {
           var $tmp = document.createElement('div');
           $tmp.innerHTML = data;
           DOM.eval(self.dom.appendChild($tmp));
-          Navi.singleton().notify();
+          (function() { Navi.singleton().notify(); }).defer();
         }
         var $viewers = document.getElementById('topic_viewers_update');
         if ($viewers) {
@@ -59,7 +59,7 @@ TopicManager.prototype.updateMessages = function(newCount) {
       $livelinks.dispatchEvent(new CustomEvent('new-page-post', {
         detail: newCount - this.messages
       }));
-      Navi.singleton().notify();
+      (function() { Navi.singleton().notify(); }).defer();
     }
   }
   this.messages = newCount;
