@@ -12,9 +12,14 @@ window.Post = function($node) {
   if (beltp > -1) {
     var $mws = this.$messageWithoutSig =
       dom.createDiv(messageHTML.slice(0, beltp));
-    var $belt = this.$belt = dom.createDiv('---');
-    var $sig = this.$sig =
-      dom.createDiv(messageHTML.slice(beltp + belt.length));
+    $mws.className = 'luetium-message';
+    var $belt = this.$belt = dom.createDiv('<div>---</div>');
+    $belt.className = 'secret';
+    $belt.firstChild.className = 'luetium-belt';
+    var $sig = this.$sig = dom.createDiv(
+        '<div>' + messageHTML.slice(beltp + belt.length) + '</div>');
+    $sig.className = 'secret';
+    $sig.firstChild.className = 'luetium-sig';
     $message.innerHTML = '';
     $message.appendChild($mws);
     $message.appendChild($belt);
