@@ -4,7 +4,7 @@
 // because content scripts are sandboxed, they don't get access
 // to the window.
 var $livelinks = document.createElement('script');
-$livelinks.src = chrome.extension.getURL('src/content/messages/navi.js');
+$livelinks.src = chrome.extension.getURL('content/messages/navi.js');
 
 // The element will be used as a bridge between content scripts and
 // the actual window. Events will fire from it signaling new posts.

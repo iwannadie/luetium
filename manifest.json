@@ -17,9 +17,9 @@
   ],
   "background": {
     "scripts": [
-      "src/util/notify.js",
-      "src/util/ajax.js",
-      "src/background/transloader.js"
+      "util/notify.js",
+      "util/ajax.js",
+      "background/transloader.js"
     ]
   },
   "content_scripts": [
@@ -31,17 +31,17 @@
       ],
       "js": [
         "third_party/favico-0.3.5.min.js",
-        "src/util/dom.js",
-        "src/util/strings.js",
-        "src/content/favicon.js",
-        "src/content/myuser.js",
-        "src/content/messages/post.js",
-        "src/content/messages/livelinks.js"
+        "util/dom.js",
+        "util/strings.js",
+        "content/favicon.js",
+        "content/myuser.js",
+        "content/messages/post.js",
+        "content/messages/livelinks.js"
       ],
       "run_at": "document_end"
     }
   ],
   "web_accessible_resources": [
-    "src/content/messages/navi.js"
+    "content/messages/navi.js"
   ]
 }
