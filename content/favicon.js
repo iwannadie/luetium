@@ -10,7 +10,30 @@ $link.href = 'data:image/vnd.microsoft.icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAA
 
 var favico = new Favico({ bgColor: '#006dff', animation: 'none' });
 var unseen = 0;
+var updating = false;
+
+// Make sure not to update the favicon too frequently.
+// Otherwise, Favico errors out and won't update it anymore.
+function setBadge(n) {
+  if (!updating) {
+    favico.badge(n);
+    updating = true;
+    setTimeout(function() {
+      updating = false;
+      if (unseen !== n) {
+        setBadge(unseen);
+      }
+    }, 700);
+  }
+}
+
 window.favicon = {
-  inc: function(n) { favico.badge(unseen += (n || 1)); },
-  dec: function(n) { favico.badge(unseen -= (n || 1)); },
+  inc: function(n) {
+    unseen += n || 1;
+    setBadge(unseen);
+  },
+  dec: function(n) {
+    unseen -= n || 1;
+    setBadge(unseen);
+  },
 };
