@@ -1,4 +1,4 @@
-/* global Favico */
+/* global Favico, storage */
 /* jshint maxlen: false */
 
 // Replace the favicon with its data URI.
@@ -11,6 +11,8 @@ $link.href = 'data:image/vnd.microsoft.icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAA
 var favico = new Favico({ bgColor: '#006dff', animation: 'none' });
 var unseen = 0;
 var updating = false;
+var updatePending = false;
+var enabled = false;
 
 // Make sure not to update the favicon too frequently.
 // Otherwise, Favico errors out and won't update it anymore.
@@ -20,20 +22,32 @@ function setBadge(n) {
     updating = true;
     setTimeout(function() {
       updating = false;
-      if (unseen !== n) {
+      if (updatePending) {
+        updatePending = false;
         setBadge(unseen);
       }
     }, 700);
+  } else {
+    updatePending = true;
   }
 }
+
+storage.get('messages.update_favicon', function(value) {
+  enabled = value;
+  setBadge(enabled ? unseen : 0);
+});
 
 window.favicon = {
   inc: function(n) {
     unseen += n || 1;
-    setBadge(unseen);
+    if (enabled) {
+      setBadge(unseen);
+    }
   },
   dec: function(n) {
     unseen -= n || 1;
-    setBadge(unseen);
+    if (enabled) {
+      setBadge(unseen);
+    }
   },
 };

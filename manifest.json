@@ -34,6 +34,7 @@
         "third_party/favico-0.3.5.min.js",
         "util/dom.js",
         "util/strings.js",
+        "content/storage.js",
         "content/favicon.js",
         "content/myuser.js",
         "content/messages/post.js",
