@@ -13,7 +13,8 @@
     "https://*/*",
     "clipboardWrite",
     "notifications",
-    "contextMenus"
+    "contextMenus",
+    "storage"
   ],
   "background": {
     "scripts": [
@@ -43,5 +44,6 @@
   ],
   "web_accessible_resources": [
     "content/messages/navi.js"
-  ]
+  ],
+  "options_page": "options/options.html"
 }
