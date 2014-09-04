@@ -1,4 +1,4 @@
-/* global TopicManager, Ajax, DOM */
+/* global TopicManager, Ajax, DOM, uiPagerBrowser */
 
 var $livelinks = document.getElementById('livelinks');
 
@@ -79,4 +79,22 @@ DOM.eval = function($node) {
     }
   }
   oldeval.call(DOM, $node);
+};
+
+// Fix updating the pager at the top of the page.
+// It won't work if more HTML is added to it.
+uiPagerBrowser.prototype.updateDOM = function(_, lastPage) {
+  var $spans = this.dom.getElementsByTagName('span');
+  var $numOfPages = $spans[0];
+  var $nextPage = $spans[1];
+  var $lastPage = $spans[2];
+  var $lastLink = $lastPage.getElementsByTagName('a')[0];
+  $lastLink.href = $lastLink.href.replace(/page=[0-9]+/, 'page=' + lastPage);
+  if (this.getPage() < this.getPages()) {
+    $nextPage.style.display = 'inline';
+  }
+  if (this.getPage() + 1 < this.getPages()) {
+    $lastPage.style.display = 'inline';
+  }
+  $numOfPages.innerHTML = lastPage;
 };
