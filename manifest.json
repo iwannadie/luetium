@@ -38,13 +38,14 @@
         "content/favicon.js",
         "content/myuser.js",
         "content/messages/post.js",
-        "content/messages/livelinks.js"
+        "content/messages/livelinks.js",
+        "content/messages/navi.js"
       ],
       "run_at": "document_end"
     }
   ],
   "web_accessible_resources": [
-    "content/messages/navi.js"
+    "content/messages/overwriter.js"
   ],
   "options_page": "options/options.html"
 }
