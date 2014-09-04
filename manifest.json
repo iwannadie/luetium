@@ -20,6 +20,7 @@
     "scripts": [
       "util/notify.js",
       "util/ajax.js",
+      "content/storage.js",
       "background/transloader.js"
     ]
   },

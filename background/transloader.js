@@ -1,17 +1,24 @@
-/* global chrome, notify, ajax */
+/* global chrome, storage, notify, ajax */
 
 // Creates a menu that will only show up when the user right clicks
 // on an image. Primarily used for uploading images from other sites to ETI.
-var menu = chrome.contextMenus.create({
-  title: 'luetium',
-  contexts: ['image']
-});
+var menu;
+storage.get('general.transloader', function(enabled) {
+  if (enabled) {
+    menu = chrome.contextMenus.create({
+      title: 'luetium',
+      contexts: ['image']
+    });
 
-chrome.contextMenus.create({
-  title: 'Transload image',
-  parentId: menu,
-  onclick: transloadit,
-  contexts: ['image']
+    chrome.contextMenus.create({
+      title: 'Transload image',
+      parentId: menu,
+      onclick: transloadit,
+      contexts: ['image']
+    });
+  } else {
+    chrome.contextMenus.remove(menu);
+  }
 });
 
 var etiRegexp = /^https?:\/\/i\d+\.endoftheinter\.net\/i\/n\//;
@@ -106,4 +113,3 @@ function pbcopy(str) {
   $clipboard.select();
   document.execCommand('copy');
 }
-
