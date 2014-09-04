@@ -16,7 +16,7 @@ storage.get('general.transloader', function(enabled) {
       onclick: transloadit,
       contexts: ['image']
     });
-  } else {
+  } else if (menu) {
     chrome.contextMenus.remove(menu);
   }
 });
