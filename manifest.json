@@ -40,7 +40,8 @@
         "content/myuser.js",
         "content/messages/post.js",
         "content/messages/livelinks.js",
-        "content/messages/navi.js"
+        "content/messages/navi.js",
+        "content/messages/style.js"
       ],
       "run_at": "document_end"
     }
