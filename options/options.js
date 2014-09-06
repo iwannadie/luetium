@@ -14,6 +14,6 @@ addTab('Messages', 'Messages inside a topic and private message thread.', [
     desc: 'Update favicon on new messages',
   },
   { type: 'checkbox', name: 'navi', desc: 'Enable navi' },
-  { type: 'checkbox', name: 'resize_imgs',
+  { type: 'checkbox', name: 'resize_images',
     desc: 'Resize large images so they fit the container' },
 ]);

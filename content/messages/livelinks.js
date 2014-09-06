@@ -1,11 +1,11 @@
-/* global chrome, dom, Post, myuser, favicon */
+/* global chrome, dom, Post, myuser, favicon, processPost */
 
 (function() {
   // This script needs to be injected into the page with a script tag
   // because content scripts are sandboxed, they don't get access
   // to the window.
   var $livelinks = window.$livelinks = document.createElement('script');
-  $livelinks.src = chrome.extension.getURL('content/messages/overwriter.js');
+  $livelinks.src = chrome.extension.getURL('overwriters/livelinks.js');
 
   // The element will be used as a bridge between content scripts and
   // the actual window. Events will fire from it signaling new posts.
@@ -35,6 +35,8 @@
       favicon.inc();
       unseenPosts.push($message);
     }
+
+    processPost(post);
   });
 
   function checkUnseenPosts() {

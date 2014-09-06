@@ -41,13 +41,45 @@
         "content/messages/post.js",
         "content/messages/livelinks.js",
         "content/messages/navi.js",
+        "content/messages/resize_images.js",
+        "content/messages/messages.js"
+      ],
+      "run_at": "document_end"
+    },
+    { "matches": [
+        "http://boards.endoftheinter.net/showmessages.php*",
+        "https://boards.endoftheinter.net/showmessages.php*",
+        "http://endoftheinter.net/inboxthread.php*",
+        "https://endoftheinter.net/inboxthread.php*",
+        "http://boards.endoftheinter.net/message.php*",
+        "https://boards.endoftheinter.net/message.php*"
+      ],
+      "js": [
+        "content/storage.js",
         "content/messages/style.js"
+      ],
+      "run_at": "document_start"
+    },
+    { "matches": [
+        "http://boards.endoftheinter.net/message.php*",
+        "https://boards.endoftheinter.net/message.php*",
+        "http://archives.endoftheinter.net/showmessages.php*",
+        "https://archives.endoftheinter.net/showmessages.php*"
+      ],
+      "js": [
+        "util/dom.js",
+        "util/strings.js",
+        "content/storage.js",
+        "content/messages/post.js",
+        "content/messages/resize_images.js",
+        "content/messages/messages.js"
       ],
       "run_at": "document_end"
     }
   ],
   "web_accessible_resources": [
-    "content/messages/overwriter.js"
+    "overwriters/livelinks.js",
+    "overwriters/imageloader.js"
   ],
   "options_page": "options/options.html"
 }
