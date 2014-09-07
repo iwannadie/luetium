@@ -20,9 +20,11 @@
     '.message-body .message .img-loaded:before {\n' +
     '  content: ""; display: block;\n' +
     '}\n' +
+    '.message-body .message .imgs img {\n' +
+    '  max-width: 100%; height: auto;\n' +
+    '}\n' +
     '.message-body .message .img-placeholder img,\n' +
     '.message-body .message .img-loaded img {\n' +
-    '  max-width: 100%; height: auto;\n' +
     '  position: absolute; top: 0; right: 0; bottom: 0; left: 0;\n' +
     '}\n';
 
